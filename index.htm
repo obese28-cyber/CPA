@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AUD Practice Testlet</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eceeef;--card:#fff;--ink:#1d2b33;--mute:#5a6a73;--line:#cfd6da;--navy:#0b3d52;--or:#d94f12;--ok:#1f7a4d;--okbg:#e3f3ea;--bad:#b3372f;--badbg:#fbe6e4;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10181d;--card:#192329;--ink:#e8eef2;--mute:#9db0bc;--line:#2c3b46;--navy:#0a2f3f;--or:#ff7a3d;--ok:#6fd09b;--okbg:#14301f;--bad:#f08a82;--badbg:#3a1a18;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10181d;--card:#192329;--ink:#e8eef2;--mute:#9db0bc;--line:#2c3b46;--navy:#0a2f3f;--or:#ff7a3d;--ok:#6fd09b;--okbg:#14301f;--bad:#f08a82;--badbg:#3a1a18;color-scheme:dark}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Roboto,system-ui,-apple-system,"Segoe UI",sans-serif}
+.strip{background:#000;color:#fff;text-align:center;font-size:.85rem;padding:5px 8px}
+.tabs{background:var(--navy);display:flex;align-items:flex-end;color:#fff;padding-top:8px}
+.sec{padding:8px 14px;font-size:1.05rem;letter-spacing:.02em}
+.tab{background:var(--card);color:var(--or);padding:8px 16px;font-size:1.05rem;border-left:3px solid var(--or)}
+.tool{background:var(--card);display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line)}
+.time{font-size:2.4rem;font-weight:200;color:var(--navy);line-height:1}
+:root[data-theme="dark"] .time{color:#cfe8f2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .time{color:#cfe8f2}}
+.tl{font-weight:700;font-size:.8rem;line-height:1.1;color:var(--ink)}
+.sp{flex:1}
+.b{font:inherit;font-weight:600;letter-spacing:.04em;border:0;border-radius:2px;padding:10px 14px;cursor:pointer;color:#fff;background:var(--navy);text-transform:uppercase;font-size:.85rem}
+.b.o{background:var(--or);color:#fff}
+.b.g{background:transparent;color:var(--navy);text-transform:none;font-weight:500}
+:root[data-theme="dark"] .b.g{color:#cfe8f2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .b.g{color:#cfe8f2}}
+.b:focus-visible,.n:focus-visible,.r:focus-within{outline:3px solid var(--or);outline-offset:2px}
+.nums{display:flex;gap:4px;overflow-x:auto;padding:8px 10px;justify-content:center}
+.n{font:inherit;background:none;border:0;color:var(--navy);font-weight:600;padding:2px 8px;cursor:pointer;min-width:30px}
+:root[data-theme="dark"] .n{color:#cfe8f2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .n{color:#cfe8f2}}
+.n.cur{color:var(--or);font-size:1.5rem;line-height:1.2}
+.n.done{text-decoration:underline}
+.panel{max-width:760px;margin:0 auto 40px;background:var(--card);border-left:6px solid var(--or);padding:16px 20px 28px;min-height:320px}
+.qn{display:flex;align-items:center;gap:10px;color:var(--navy)}
+.qn big{font-size:2rem;color:var(--or);font-weight:700}
+.ar{font:inherit;background:none;border:0;color:var(--navy);font-size:1.4rem;cursor:pointer}
+:root[data-theme="dark"] .ar{color:#cfe8f2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ar{color:#cfe8f2}}
+.q{margin:14px 0 18px;font-size:1.02rem}
+.r{display:flex;gap:14px;align-items:flex-start;padding:10px 6px;cursor:pointer}
+.r input{margin-top:5px;accent-color:var(--or)}
+.msg{background:var(--bg);border:1px solid var(--line);padding:10px 14px;margin:12px auto;max-width:760px}
+.res{max-width:760px;margin:14px auto 40px;padding:0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--or);padding:16px 20px;margin-bottom:14px}
+.big2{font-size:2.4rem;font-weight:300;margin:0;color:var(--navy)}
+.tbl{width:100%;border-collapse:collapse}.tbl th,.tbl td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+.wrap{overflow-x:auto}
+.ok{color:var(--ok);font-weight:700}.no{color:var(--bad);font-weight:700}
+.rv p{margin:6px 0}.rv b{display:block}
+.t{color:var(--or);font-weight:700;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="strip">Practice testing window. Original practice questions, not affiliated with the AICPA.</div>
+<div class="tabs"><div class="sec">AUDITING AND ATTESTATION</div><div class="tab">TESTLET 1</div></div>
+<div class="tool">
+<div class="time" id="time">15:00</div><div class="tl">EXAM TIME<br>REMAINING</div>
+<div class="sp"></div>
+<button class="b g" id="ov">Overview</button>
+<button class="b o" id="sub">Submit testlet</button>
+</div>
+<div class="nums" id="nums"></div>
+<div id="msg"></div>
+<div id="app"></div>
+<script>
+const Q=[
+{t:"Audit reports",q:"The auditor concludes a misstatement is material but not pervasive. Which opinion fits?",o:["Unmodified","Qualified","Adverse","Disclaimer"],a:1,
+rule:"Material but not pervasive = qualified. Material and pervasive = adverse.",
+why:"The problem is serious, but it is limited to specific items. So the auditor says “except for.”",
+wrong:"Unmodified needs no material misstatement. Adverse needs pervasive. Disclaimer is for a pervasive lack of evidence.",
+trick:"Pervasive = Poison (adverse). Not pervasive = “Except for” (qualified)."},
+{t:"Sampling",q:"In attribute sampling for tests of controls, which change would increase the sample size?",o:["Higher tolerable deviation rate","Lower expected deviation rate","Lower tolerable deviation rate","Lower desired confidence level"],a:2,
+rule:"Tighter requirements need a bigger sample.",
+why:"If you tolerate fewer deviations, you need more items to be sure the rate is that low.",
+wrong:"Higher tolerable rate, lower expected rate, and lower confidence all let you test fewer items.",
+trick:"Tight tolerance = Tons of samples."},
+{t:"Audit evidence",q:"Which evidence is generally the most reliable?",o:["Inquiry of the client’s controller","A bank confirmation received directly by the auditor","A copy of a vendor invoice from the client’s files","A client-prepared aging report"],a:1,
+rule:"Evidence is stronger when it is external, direct, and in the auditor’s hands.",
+why:"The bank is independent, and the client never touches the response.",
+wrong:"Inquiry alone is weak. Invoice copies and client-made reports come from the client’s side.",
+trick:"Outside + Direct = Best."},
+{t:"Subsequent events",q:"A major customer files for bankruptcy two weeks after year-end. Its financial trouble existed at year-end. What is the treatment?",o:["Disclose only","Adjust the financial statements","No action needed","Withdraw the audit report"],a:1,
+rule:"Condition existed at the balance sheet date = recognized event = adjust.",
+why:"The bankruptcy gives more evidence about a receivable that was already in trouble at year-end.",
+wrong:"Disclosure only is for events that began after year-end. No action ignores the new evidence. Withdrawing the report is not the answer here.",
+trick:"Existed at year-end? Adjust. Started after? Just tell."},
+{t:"Fraud risk",q:"Which two risks does the auditor presume are significant fraud risks?",o:["Inventory obsolescence and payroll","Revenue recognition and management override of controls","Related parties and subsequent events","Cash existence and receivables valuation"],a:1,
+rule:"Presume fraud risk in revenue recognition (can be rebutted). Management override is always a risk.",
+why:"Management can post entries and push revenue, and controls often don’t stop them.",
+wrong:"The other pairs can be risky, but the standards don’t presume them.",
+trick:"R.O. = Revenue + Override."},
+{t:"Analytical procedures",q:"At which stages must the auditor perform analytical procedures?",o:["Planning and substantive testing","Planning and the overall review","Substantive testing and the overall review","Only at the overall review"],a:1,
+rule:"Required at planning and at the overall review near the end. Substantive use is optional.",
+why:"The start helps assess risk. The end checks that the whole picture makes sense.",
+wrong:"Any answer that makes substantive testing required, or drops planning, is wrong.",
+trick:"Required at the Bookends: start and finish."},
+{t:"Reports",q:"An auditor adds an emphasis-of-matter paragraph about a significant related party transaction. What is the effect on the opinion?",o:["It becomes qualified","It becomes adverse","It stays unmodified","It becomes a disclaimer"],a:2,
+rule:"An emphasis-of-matter paragraph does not change the opinion.",
+why:"It points readers to something already properly disclosed.",
+wrong:"Qualified, adverse, and disclaimer all need a real problem with the statements or the evidence.",
+trick:"Emphasis = Extra attention, same opinion."},
+{t:"Reports",q:"Where does the “Basis for Qualified Opinion” section go in the report?",o:["Before the opinion section","Immediately after the opinion section","Inside management’s responsibilities","After the signature"],a:1,
+rule:"The opinion comes first. The basis section follows right after it.",
+why:"Readers see the conclusion first, then the reason for the modification.",
+wrong:"The other spots break the required report order.",
+trick:"Opinion first, Basis Behind it."},
+{t:"Internal control",q:"Which pair of duties should be done by different people?",o:["Handling cash receipts and posting to the customer ledger","Preparing sales invoices and sorting mail","Filing paid invoices and filing receiving reports","Attending staff meetings and approving leave"],a:0,
+rule:"Separate custody of assets from recording.",
+why:"One person with both can take cash and hide it in the books.",
+wrong:"The other pairs don’t mix an asset with its record.",
+trick:"Hands on cash? Hands off the books."},
+{t:"Independence",q:"Which situation impairs a CPA’s independence from an audit client?",o:["The CPA owns a small direct financial interest in the client","The CPA prepares the client’s tax return","The CPA has a fully insured account at a bank that is the client","The CPA attends the client’s holiday party"],a:0,
+rule:"Any direct financial interest in an attest client impairs independence, even if small.",
+why:"Materiality does not matter for direct interests, because the CPA gains from the client’s results.",
+wrong:"Tax prep is allowed with safeguards. A fully insured account is permitted. A party is not a financial tie.",
+trick:"Direct = Dead, no matter how small."},
+{t:"Planning",q:"What does the overall audit strategy do?",o:["Lists the detailed procedures for each account","Sets the scope, timing, and direction of the audit and guides the audit plan","Documents the auditor’s final conclusions","Replaces the risk assessment"],a:1,
+rule:"Strategy is the big picture. The audit plan is the detailed procedures.",
+why:"The strategy decides how the audit will run overall, and the plan fills in the steps.",
+wrong:"Detailed procedures belong to the audit plan. Conclusions come at the end. The strategy builds on the risk assessment and doesn’t replace it.",
+trick:"Strategy = Scope, timing, direction. Plan = Procedures."},
+{t:"Planning",q:"How does performance materiality compare with materiality for the financial statements as a whole?",o:["Equal to it","Higher than it","Lower than it","Set only after testing ends"],a:2,
+rule:"Performance materiality is set lower than overall materiality.",
+why:"It is a cushion, so small misstatements that add up don’t pass overall materiality without being caught.",
+wrong:"Equal or higher removes the cushion. It is set during planning, not after testing.",
+trick:"Performance is the Padded number: lower."},
+{t:"Auditor’s specialist",q:"Before relying on an auditor’s specialist, what must the auditor evaluate?",o:["The specialist’s competence, capabilities, and objectivity","Only the specialist’s fee","Whether management agrees with the specialist","Nothing, because specialists are experts"],a:0,
+rule:"Check competence, capabilities, and objectivity.",
+why:"The auditor is still responsible for the opinion, so the auditor must be sure the specialist can be trusted.",
+wrong:"Fees and management’s agreement say nothing about quality. Being an expert doesn’t remove the duty to evaluate.",
+trick:"CCO: Competence, Capabilities, Objectivity."},
+{t:"Auditor’s specialist",q:"How does the auditor refer to an auditor’s specialist in a report with an unmodified opinion?",o:["Names the specialist and shares responsibility","Cites the specialist’s report in the opinion paragraph","Makes no reference to the specialist","Adds a paragraph praising the specialist"],a:2,
+rule:"No reference in an unmodified report. The auditor alone owns the opinion.",
+why:"Responsibility is not divided, so mentioning the specialist could suggest it is.",
+wrong:"Naming, citing, or praising the specialist all hint at shared responsibility.",
+trick:"Specialist helps. Auditor owns."},
+{t:"Internal auditors",q:"Before using the work of internal auditors, what must the external auditor evaluate?",o:["The size of the internal audit department and its budget","Objectivity, competence, and a systematic and disciplined approach","Whether internal auditors hold CPA licenses","Whether internal audit reports to the controller"],a:1,
+rule:"Evaluate objectivity, competence, and a systematic and disciplined approach.",
+why:"If internal audit isn’t objective or skilled, its work can’t be trusted.",
+wrong:"Size and budget don’t prove quality. A CPA license isn’t required. Reporting to the controller would weaken objectivity.",
+trick:"OCD: Objectivity, Competence, Disciplined approach."},
+{t:"Internal auditors",q:"Which task is least appropriate to give internal auditors as direct assistance?",o:["Observing a count at a minor location","Testing vendor invoices for a low-risk account","Evaluating a highly judgmental fair value estimate","Footing a schedule and agreeing it to the ledger"],a:2,
+rule:"Don’t assign significant judgments or higher-risk areas to internal auditors.",
+why:"The external auditor must make the key judgments, because the opinion is theirs alone.",
+wrong:"The other three are low-risk, routine tasks with little judgment.",
+trick:"Routine work can be shared. Judgment stays with me."},
+{t:"Related parties",q:"Management states in the notes that a related party sale was on arm’s-length terms. What must the auditor do?",o:["Accept it, since management made it","Obtain sufficient appropriate evidence supporting the assertion","Remove the statement from the notes","Ignore it, since it is only a disclosure"],a:1,
+rule:"An arm’s-length claim needs evidence.",
+why:"Related party deals can be priced unfairly, so the claim must be backed up.",
+wrong:"Accepting or ignoring it skips the work. The auditor doesn’t edit the notes. Management must correct them.",
+trick:"Arm’s-length claim? Show me the proof."},
+{t:"Related parties",q:"For a significant related party transaction outside the normal course of business, what should the auditor evaluate?",o:["Only whether the amount is material","Whether the business rationale suggests fraud or concealment","Whether the deal was profitable","Whether the related party is publicly traded"],a:1,
+rule:"Evaluate the business rationale for signs of fraudulent reporting or hidden misappropriation.",
+why:"Odd deals with insiders are a classic way to hide fraud.",
+wrong:"Materiality, profit, and public status don’t answer why the deal exists.",
+trick:"Odd deal? Ask why."},
+{t:"Accounting estimates",q:"Why does the auditor review the outcome of prior-period accounting estimates?",o:["To restate the prior-period statements","To help assess risk and spot possible management bias in current estimates","To replace testing of current estimates","To grade the prior auditor’s work"],a:1,
+rule:"Looking back helps assess current risk and bias.",
+why:"If past estimates were often off in the same direction, current ones may be too.",
+wrong:"It doesn’t restate old statements, replace current testing, or grade anyone.",
+trick:"Look back to look forward."},
+{t:"Accounting estimates",q:"Each estimate is within the auditor’s reasonable range, but all of them move income up. What does this suggest?",o:["Nothing, since each is within range","Possible management bias to evaluate","A GAAP departure","An IT control deficiency"],a:1,
+rule:"Look at estimates together. A pattern in one direction can signal bias.",
+why:"Each one may look fine alone, but the combined effect can still mislead.",
+wrong:"Being in range doesn’t clear a pattern. It isn’t automatically a GAAP departure or an IT issue.",
+trick:"Fine one by one, but all one way? Bias."},
+{t:"Fair value",q:"Which inputs are Level 1 in the fair value hierarchy?",o:["Quoted prices in active markets for identical assets","Quoted prices for similar assets","Management’s own assumptions","An appraisal report"],a:0,
+rule:"Level 1 = quoted prices in active markets for identical items.",
+why:"It is the most observable and most reliable input.",
+wrong:"Similar assets are Level 2. Management’s own assumptions are Level 3. Appraisals vary by their inputs.",
+trick:"1 = Identical and quoted. 2 = Similar. 3 = Self-made."},
+{t:"Fair value",q:"Which fair value measurements usually carry the most risk and need the most auditor attention?",o:["Level 1","Level 2","Level 3","All carry equal risk"],a:2,
+rule:"Level 3 uses unobservable inputs, so it carries the highest risk.",
+why:"With little market data, the numbers rest on management’s assumptions.",
+wrong:"Level 1 uses market prices and Level 2 uses observable inputs. The risk is not equal.",
+trick:"Level 3 = Little evidence, Lots of judgment."}
+];
+let cur=0,ans=Array(Q.length).fill(null),left=Q.length*90,warned=false,done=false,tm;
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function nums(){
+ $("nums").innerHTML="";
+ Q.forEach((_,k)=>{const b=document.createElement("button");b.className="n"+(k===cur?" cur":"")+(ans[k]!==null?" done":"");b.textContent=k+1;b.onclick=()=>{cur=k;show()};$("nums").appendChild(b)});
+}
+function show(){
+ if(done)return;
+ nums();
+ const x=Q[cur];
+ $("app").innerHTML='<div class="panel"><div class="qn"><button class="ar" id="pv" aria-label="Previous question">&#9664;</button><big>'+(cur+1)+'</big><button class="ar" id="nx" aria-label="Next question">&#9654;</button></div><p class="q">'+esc(x.q)+'</p><div id="o"></div></div>';
+ x.o.forEach((t,k)=>{const l=document.createElement("label");l.className="r";l.innerHTML='<input type="radio" name="a"'+(ans[cur]===k?" checked":"")+'><span>'+esc(t)+'</span>';l.querySelector("input").onchange=()=>{ans[cur]=k;nums()};$("o").appendChild(l)});
+ $("pv").onclick=()=>{if(cur>0){cur--;show()}};
+ $("nx").onclick=()=>{if(cur<Q.length-1){cur++;show()}};
+}
+$("ov").onclick=()=>{
+ const m=$("msg");
+ if(m.innerHTML){m.innerHTML="";return}
+ let h='<div class="msg"><b>Overview</b><br>';
+ Q.forEach((_,k)=>{h+="Question "+(k+1)+": "+(ans[k]===null?"Not answered":"Answered")+"<br>"});
+ m.innerHTML=h+"</div>";
+};
+$("sub").onclick=()=>{
+ const un=ans.filter(a=>a===null).length;
+ if(un&&!warned){warned=true;$("msg").innerHTML='<div class="msg">You have '+un+' unanswered question'+(un>1?"s":"")+'. Select Submit testlet again to finish anyway.</div>';return}
+ finish();
+};
+function tick(){
+ left--;
+ const m=Math.floor(left/60),s=left%60;
+ $("time").textContent=m+":"+String(s).padStart(2,"0");
+ if(left<=0)finish();
+}
+$("time").textContent=Math.floor(left/60)+":"+String(left%60).padStart(2,"0");tm=setInterval(tick,1000);
+function finish(){
+ if(done)return;
+ done=true;clearInterval(tm);
+ $("msg").innerHTML="";$("nums").innerHTML="";
+ let sc=0;const by={};
+ Q.forEach((x,k)=>{const g=ans[k]===x.a;if(g)sc++;by[x.t]=by[x.t]||{c:0,n:0};by[x.t].n++;if(g)by[x.t].c++});
+ let rows="";
+ Object.keys(by).forEach(t=>{const v=by[t];rows+="<tr><td>"+esc(t)+"</td><td>"+v.c+" / "+v.n+"</td><td>"+(v.c===v.n?"Solid":"Review")+"</td></tr>"});
+ let h='<div class="res"><div class="card"><p class="big2">'+sc+' / '+Q.length+'</p><p>Topics marked Review are where to study next.</p><div class="wrap"><table class="tbl"><tr><th>Topic</th><th>Score</th><th>Next step</th></tr>'+rows+'</table></div><p><button class="b o" id="again">Retake testlet</button></p></div>';
+ Q.forEach((x,k)=>{
+  const g=ans[k]===x.a;
+  h+='<div class="card rv"><div class="t">Question '+(k+1)+' | '+esc(x.t)+'</div><p>'+esc(x.q)+'</p>'
+   +'<p class="'+(g?"ok":"no")+'">'+(g?"Correct":(ans[k]===null?"Not answered":"Your answer: "+esc(x.o[ans[k]])))+'</p>'
+   +'<p><b>Correct answer</b>'+esc(x.o[x.a])+'</p><p><b>Simple rule</b>'+esc(x.rule)+'</p><p><b>Why</b>'+esc(x.why)+'</p><p><b>Why the other choices are wrong</b>'+esc(x.wrong)+'</p><p><b>CPA memory trick</b>'+esc(x.trick)+'</p></div>';
+ });
+ $("app").innerHTML=h+"</div>";
+ $("again").onclick=()=>location.reload();
+ window.scrollTo(0,0);
+}
+show();
+</script>
+</body>
+</html>
