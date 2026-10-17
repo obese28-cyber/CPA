@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AUD Practice Simulation</title>
+<style>
+:root{box-sizing:border-box;--bg:#eceeef;--card:#fff;--ink:#1d2b33;--line:#cfd6da;--navy:#0b3d52;--nv:#0b3d52;--or:#d94f12;--onor:#fff;--ok:#1f7a4d;--bad:#b3372f;--hd:#e9e4ea;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#10181d;--card:#192329;--ink:#e8eef2;--line:#2c3b46;--navy:#0a2f3f;--nv:#cfe8f2;--or:#ff7a3d;--onor:#10181d;--ok:#6fd09b;--bad:#f08a82;--hd:#22313a;color-scheme:dark}}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Roboto,system-ui,-apple-system,"Segoe UI",sans-serif;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.strip{background:#000;color:#fff;text-align:center;font-size:.85rem;padding:5px 8px}
+.tabs{background:var(--navy);display:flex;align-items:flex-end;color:#fff;padding-top:8px;flex-wrap:wrap}
+.sec{padding:8px 14px;font-size:1.05rem}
+.tab{background:var(--card);color:var(--or);padding:8px 16px;font-size:1.05rem;border-left:3px solid var(--or)}
+.tab2{color:#fff;padding:8px 16px;font-size:1.05rem;text-decoration:none}
+.tool{background:var(--card);display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line)}
+.time{font-size:2.4rem;font-weight:200;color:var(--nv);line-height:1}
+.tl{font-weight:700;font-size:.8rem;line-height:1.1}
+.sp{flex:1}
+.b{font:inherit;font-weight:600;letter-spacing:.04em;border:0;border-radius:2px;padding:10px 14px;cursor:pointer;color:#fff;background:var(--navy);text-transform:uppercase;font-size:.85rem}
+.b.o{background:var(--or);color:var(--onor)}
+.b.g{background:none;color:var(--nv);text-decoration:underline}
+.b:disabled{opacity:.45;cursor:default}
+.b:focus-visible,.cell:focus-visible,.rad:focus-within{outline:3px solid var(--or);outline-offset:2px}
+.panel{max-width:860px;margin:14px auto 40px;background:var(--card);border-left:6px solid var(--or);padding:16px 20px 28px}
+.qn{font-size:2rem;color:var(--or);font-weight:700;margin:0 0 6px}
+.wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th{background:var(--hd);padding:10px;border:1px solid var(--line)}
+td{border:1px solid var(--line);padding:8px 10px;vertical-align:middle}
+td.ac{width:46%;padding:0}
+.cell{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;min-height:48px;text-align:left;font:inherit;color:var(--ink);background:none;border:0;padding:8px 10px;cursor:pointer}
+.cell .ic{color:var(--nv);font-size:1.2rem}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;padding:12px}
+.dlg{background:var(--navy);color:#fff;width:100%;max-width:560px;padding:16px 12px 12px;border-radius:3px}
+.dlg h2{font-size:1.05rem;font-weight:400;margin:0 0 12px 6px}
+.in{background:var(--card);color:var(--ink);padding:10px 14px}
+.rad{display:flex;gap:12px;align-items:flex-start;padding:9px 4px;cursor:pointer}
+.rad input{margin-top:5px;accent-color:var(--or)}
+.ft{background:var(--card);display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+.ok{color:var(--ok);font-weight:700}.no{color:var(--bad);font-weight:700}
+.big2{font-size:2.4rem;font-weight:300;margin:0;color:var(--nv)}
+.rv td{font-size:.95rem}
+.grid td,.grid th{text-align:center}
+.msg{background:var(--bg);border:1px solid var(--line);padding:10px 14px;margin:12px auto;max-width:860px}
+</style>
+</head>
+<body>
+<div class="strip">Practice testing window. Original practice items, not affiliated with the AICPA.</div>
+<div class="tabs"><div class="sec">AUDITING AND ATTESTATION</div><a class="tab2" href="index.html">TESTLET 1</a><div class="tab">SIMULATION</div></div>
+<div class="tool"><div class="time" id="time">10:00</div><div class="tl">EXAM TIME<br>REMAINING</div><div class="sp"></div><button class="b o" id="sub">Submit simulation</button></div>
+<div id="msg"></div>
+<div id="app"></div>
+<script>
+const OPT=["Unmodified opinion","Unmodified opinion with an emphasis-of-matter paragraph","Qualified opinion","Adverse opinion","Disclaimer of opinion"];
+const S=[
+{s:"Management refuses to correct a material misstatement in inventory. No other accounts are affected.",a:2,w:"Material but not pervasive misstatement: qualified."},
+{s:"Material misstatements affect most accounts, so the statements as a whole are misleading.",a:3,w:"Material and pervasive misstatement: adverse."},
+{s:"The client blocks the auditor from observing inventory. The possible effects are material but limited to inventory.",a:2,w:"Evidence is missing, but the effect is not pervasive: qualified."},
+{s:"The auditor cannot get sufficient evidence on many accounts, and the possible effects are material and pervasive.",a:4,w:"Missing evidence that is pervasive: disclaimer."},
+{s:"A fire destroyed the main plant after year-end. The notes disclose it properly, and the auditor wants readers to notice it.",a:1,w:"The statements are fine. An emphasis-of-matter paragraph points to a disclosed matter and the opinion stays unmodified."},
+{s:"The statements are free of material misstatement, and the auditor obtained sufficient appropriate evidence.",a:0,w:"No problems: a clean, unmodified opinion."},
+{s:"Management leaves out a required note. The omission is material but not pervasive.",a:2,w:"A material omission that is not pervasive: qualified."},
+{s:"The statements ignore GAAP for revenue, leases, and debt, and the errors are material and pervasive.",a:3,w:"Material and pervasive misstatement: adverse."}
+];
+let pick=Array(S.length).fill(null),idx=-1,tmp=null,left=600,done=false,warned=false;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function draw(){
+ let h='<div class="panel"><p class="qn">1</p><p>An auditor is deciding which opinion to issue. Select from the option list the response that best fits each statement below. Each choice may be used once, more than once, or not at all.</p><div class="wrap"><table><tr><th>Statement</th><th>Opinion</th></tr>';
+ S.forEach((x,i)=>{h+='<tr><td>'+(i+1)+'. '+esc(x.s)+'</td><td class="ac"><button class="cell" data-i="'+i+'"><span>'+(pick[i]===null?"":esc(OPT[pick[i]]))+'</span><span class="ic" aria-hidden="true">&#9776;</span></button></td></tr>'});
+ $("app").innerHTML=h+'</table></div></div>';
+ document.querySelectorAll(".cell").forEach(b=>b.onclick=()=>open(+b.dataset.i));
+}
+function open(i){
+ idx=i;tmp=pick[i];
+ const o=document.createElement("div");o.className="ov";o.id="ov";
+ let r="";OPT.forEach((t,k)=>{r+='<label class="rad"><input type="radio" name="p" value="'+k+'"'+(tmp===k?" checked":"")+'><span>'+esc(t)+'</span></label>'});
+ o.innerHTML='<div class="dlg" role="dialog" aria-label="Select an option"><h2>Select an option below</h2><div class="in">'+r+'</div><div class="ft"><button class="b" id="rs">Reset</button><button class="b g" id="cn">Cancel</button><button class="b o" id="ac"'+(tmp===null?" disabled":"")+'>Accept</button></div></div>';
+ document.body.appendChild(o);
+ o.querySelectorAll("input").forEach(e=>e.onchange=()=>{tmp=+e.value;$("ac").disabled=false});
+ $("rs").onclick=()=>{tmp=null;o.querySelectorAll("input").forEach(e=>e.checked=false);$("ac").disabled=true};
+ $("cn").onclick=close;
+ $("ac").onclick=()=>{pick[idx]=tmp;close();draw()};
+}
+function close(){const o=$("ov");if(o)o.remove()}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+$("sub").onclick=()=>{
+ const un=pick.filter(p=>p===null).length;
+ if(un&&!warned){warned=true;$("msg").innerHTML='<div class="msg">You have '+un+' unanswered statement'+(un>1?"s":"")+'. Select Submit simulation again to finish anyway.</div>';return}
+ finish();
+};
+const tm=setInterval(()=>{left--;$("time").textContent=Math.floor(left/60)+":"+String(left%60).padStart(2,"0");if(left<=0)finish()},1000);
+function finish(){
+ if(done)return;done=true;clearInterval(tm);close();$("msg").innerHTML="";
+ let sc=0,rows="";
+ S.forEach((x,i)=>{const g=pick[i]===x.a;if(g)sc++;rows+='<tr><td>'+(i+1)+'. '+esc(x.s)+'</td><td class="'+(g?"ok":"no")+'">'+(pick[i]===null?"Not answered":esc(OPT[pick[i]]))+'</td><td>'+esc(OPT[x.a])+'</td><td>'+esc(x.w)+'</td></tr>'});
+ $("app").innerHTML='<div class="panel"><p class="big2">'+sc+' / '+S.length+'</p><p>Review each statement below.</p><div class="wrap"><table class="rv"><tr><th>Statement</th><th>Your answer</th><th>Correct answer</th><th>Why</th></tr>'+rows+'</table></div>'
+ +'<h3>CPA memory trick</h3><p>Ask two questions. What is the problem: a misstatement or missing evidence? Then, how big: material only, or material and pervasive?</p><div class="wrap"><table class="grid"><tr><th></th><th>Material, not pervasive</th><th>Material and pervasive</th></tr><tr><th>Misstatement</th><td>Qualified</td><td>Adverse</td></tr><tr><th>Missing evidence</th><td>Qualified</td><td>Disclaimer</td></tr></table></div><p>No problem is unmodified. A properly disclosed matter the auditor wants to highlight adds an emphasis-of-matter paragraph without changing the opinion.</p><p><button class="b o" onclick="location.reload()">Retake simulation</button></p></div>';
+ window.scrollTo(0,0);
+}
+draw();
+</script>
+</body>
+</html>
